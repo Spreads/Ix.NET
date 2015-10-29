@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+#if SPREADS
+using Spreads;
+#endif
 
 namespace System.Linq
 {

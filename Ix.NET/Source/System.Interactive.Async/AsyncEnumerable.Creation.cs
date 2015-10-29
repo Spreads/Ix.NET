@@ -1,9 +1,13 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+#if SPREADS
+using Spreads;
+#endif
 
 namespace System.Linq
 {
@@ -27,6 +31,20 @@ namespace System.Linq
             {
                 return getEnumerator();
             }
+
+#if SPREADS
+            IEnumerator IEnumerable.GetEnumerator() {
+                return getEnumerator();
+            }
+
+            IEnumerator<T> IEnumerable<T>.GetEnumerator() {
+                return getEnumerator();
+            }
+
+            IAsyncEnumerator<T> IAsyncEnumerable<T>.GetEnumerator() {
+                return getEnumerator();
+            }
+#endif
         }
 
         static IAsyncEnumerator<T> Create<T>(Func<CancellationToken, Task<bool>> moveNext, Func<T> current, Action dispose)
@@ -64,13 +82,17 @@ namespace System.Linq
             private readonly Func<CancellationToken, Task<bool>> _moveNext;
             private readonly Func<T> _current;
             private readonly Action _dispose;
+            
             private bool _disposed;
 
-            public AnonymousAsyncEnumerator(Func<CancellationToken, Task<bool>> moveNext, Func<T> current, Action dispose)
+            public AnonymousAsyncEnumerator(Func<CancellationToken, Task<bool>> moveNext, Func<T> current, Action dispose, Action reset = null)
             {
                 _moveNext = moveNext;
                 _current = current;
                 _dispose = dispose;
+#if SPREADS
+                _reset = reset;
+#endif
             }
 
             public Task<bool> MoveNext(CancellationToken cancellationToken)
@@ -89,6 +111,7 @@ namespace System.Linq
                 }
             }
 
+
             public void Dispose()
             {
                 if (!_disposed)
@@ -97,6 +120,22 @@ namespace System.Linq
                     _dispose();
                 }
             }
+#if SPREADS
+            private readonly Action _reset;
+            object IEnumerator.Current {
+                get {
+                    return Current;
+                }
+            }
+            public bool MoveNext() {
+                // TODO (!) this is blocking, must follow spreads contract
+                return MoveNext(CancellationToken.None).Result;
+            }
+
+            public void Reset() {
+                _reset();
+            }
+#endif
         }
 
         public static IAsyncEnumerable<TValue> Return<TValue>(TValue value)

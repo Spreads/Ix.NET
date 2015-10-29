@@ -3,6 +3,18 @@ using System;
 
 namespace System.Collections.Generic
 {
+
+
+#if SPREADS
+
+    //public interface IAsyncEnumerable<T> : Spreads.IAsyncEnumerable<T>
+    //{
+        
+    //}
+
+#else
+
+
     /// <summary>
     /// Asynchronous version of the IEnumerable&lt;T&gt; interface, allowing elements of the
     /// enumerable sequence to be retrieved asynchronously.
@@ -20,4 +32,6 @@ out
         /// <returns>Enumerator for asynchronous enumeration over the sequence.</returns>
         IAsyncEnumerator<T> GetEnumerator();
     }
+#endif
+
 }

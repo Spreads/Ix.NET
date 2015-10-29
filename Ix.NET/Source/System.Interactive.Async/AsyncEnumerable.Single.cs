@@ -1,9 +1,13 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+#if SPREADS
+using Spreads;
+#endif
 
 namespace System.Linq
 {
@@ -1144,6 +1148,20 @@ namespace System.Linq
             {
                 return Classes().SelectMany(x => x.ToAsyncEnumerable()).GetEnumerator();
             }
+
+#if SPREADS
+            IAsyncEnumerator<T> IAsyncEnumerable<T>.GetEnumerator() {
+                return GetEnumerator();
+            }
+
+            IEnumerator<T> IEnumerable<T>.GetEnumerator() {
+                return GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() {
+                return GetEnumerator();
+            }
+#endif
         }
 
         class ReverseComparer<T> : IComparer<T>
@@ -1435,6 +1453,12 @@ namespace System.Linq
                 private set;
             }
 
+            TKey IAsyncGrouping<TKey, TElement>.Key {
+                get {
+                    throw new NotImplementedException();
+                }
+            }
+
             public void Add(TElement element)
             {
                 lock (elements)
@@ -1498,6 +1522,19 @@ namespace System.Linq
                     d.Dispose
                 );
             }
+#if SPREADS
+            IAsyncEnumerator<TElement> IAsyncEnumerable<TElement>.GetEnumerator() {
+                return GetEnumerator();
+            }
+
+            IEnumerator<TElement> IEnumerable<TElement>.GetEnumerator() {
+                return GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() {
+                return GetEnumerator();
+            }
+#endif
         }
 
         #region Ix

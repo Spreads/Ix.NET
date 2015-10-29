@@ -1,9 +1,18 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 using System;
 using System.Collections.Generic;
-
+#if SPREADS
+using Spreads;
+#endif
 namespace System.Linq
 {
+#if SPREADS
+
+    public interface IAsyncGrouping<TKey, TElement> : IAsyncEnumerable<TElement> {
+        TKey Key { get; }
+    }
+
+#else
     public interface IAsyncGrouping<
 #if !NO_VARIANCE
         out 
@@ -16,4 +25,5 @@ namespace System.Linq
     {
         TKey Key { get; }
     }
+#endif
 }

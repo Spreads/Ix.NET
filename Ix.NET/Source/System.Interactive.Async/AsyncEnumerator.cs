@@ -3,6 +3,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+#if SPREADS
+using Spreads;
+#endif
 
 namespace System.Collections.Generic
 {

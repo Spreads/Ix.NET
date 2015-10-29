@@ -5,6 +5,13 @@ using System.Threading;
 
 namespace System.Collections.Generic
 {
+
+#if SPREADS
+
+    //public interface IAsyncEnumerator<T> : Spreads.IAsyncEnumerator<T> {
+    //}
+
+#else
     /// <summary>
     /// Asynchronous version of the IEnumerator&lt;T&gt; interface, allowing elements to be
     /// retrieved asynchronously.
@@ -31,4 +38,5 @@ out
         /// </summary>
         T Current { get; }
     }
+#endif
 }
