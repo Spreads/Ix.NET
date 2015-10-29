@@ -1,0 +1,1 @@
+Original Rx/Ix authors are listed here: https://github.com/Reactive-Extensions/Rx.NET/blob/master/AUTHORS.txt
