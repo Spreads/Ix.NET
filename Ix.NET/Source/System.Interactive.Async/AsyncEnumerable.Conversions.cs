@@ -8,8 +8,8 @@ using System.Threading;
 using Spreads;
 #endif
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
+
     public static partial class AsyncEnumerable
     {
         public static IAsyncEnumerable<TSource> ToAsyncEnumerable<TSource>(this IEnumerable<TSource> source)

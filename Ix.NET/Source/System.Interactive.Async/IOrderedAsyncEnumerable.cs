@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using Spreads;
 #endif
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
     public interface IOrderedAsyncEnumerable<
 #if !NO_VARIANCE
 out 

@@ -7,8 +7,7 @@ using System.Threading;
 using Spreads;
 #endif
 
-namespace System.Collections.Generic
-{
+namespace Spreads.Ix {
     public static class AsyncEnumerator
     {
         /// <summary>

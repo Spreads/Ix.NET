@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using Spreads;
 #endif
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
     public static partial class AsyncEnumerable
     {
         public static IAsyncEnumerable<TSource> Catch<TSource, TException>(this IAsyncEnumerable<TSource> source, Func<TException, IAsyncEnumerable<TSource>> handler)

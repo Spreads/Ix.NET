@@ -7,7 +7,7 @@ using System.Threading;
 #if SPREADS
 using Spreads;
 #endif
-namespace System.Linq
+namespace Spreads.Ix
 {
     public static partial class AsyncEnumerable
     {

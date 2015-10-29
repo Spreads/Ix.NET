@@ -2,9 +2,10 @@
 using System;
 using System.Threading.Tasks;
 using System.Threading;
-
-namespace System.Collections.Generic
-{
+#if SPREADS
+using Spreads;
+#endif
+namespace Spreads {
 
 #if SPREADS
 
@@ -21,7 +22,7 @@ namespace System.Collections.Generic
 #if !NO_VARIANCE
 out
 #endif
-        T> : IDisposable
+        T> : IEnumerator<T>, IDisposable
     {
         /// <summary>
         /// Advances the enumerator to the next element in the sequence, returning the result asynchronously.
@@ -33,10 +34,27 @@ out
         /// </returns>
         Task<bool> MoveNext(CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Gets the current element in the iteration.
-        /// </summary>
-        T Current { get; }
     }
 #endif
+    
+    internal static class AsyncEnumeratorMoveExtensions {
+        /// <summary>
+        /// Helper method to move an async cursor using sync method, but to return a task while keeping Spreads contracts
+        /// </summary>
+        public static Task<bool> MoveNext<T>(this IAsyncEnumerator<T> e, CancellationToken ct, bool isAsync) {
+            if (isAsync) {
+                return e.MoveNext(ct);
+            } else {
+                try {
+                    if (e.MoveNext()) {
+                        return Task.FromResult(true);
+                    } else {
+                        return Task.FromResult(false);
+                    }
+                } catch (Exception ex) {
+                    return TaskExt.Throw<bool>(ex);
+                }
+            }
+        }
+    }
 }

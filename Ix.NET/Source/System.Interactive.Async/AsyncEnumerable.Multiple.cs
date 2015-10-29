@@ -8,8 +8,7 @@ using System.Threading;
 using Spreads;
 #endif
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
     public static partial class AsyncEnumerable
     {
         public static IAsyncEnumerable<TSource> Concat<TSource>(this IAsyncEnumerable<TSource> first, IAsyncEnumerable<TSource> second)

@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
     class EnumerableGrouping<TKey, TElement> : IGrouping<TKey, TElement>
     {
         List<TElement> elements = new List<TElement>();

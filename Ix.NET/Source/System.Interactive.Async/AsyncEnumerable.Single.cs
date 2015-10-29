@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using Spreads;
 #endif
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
     public static partial class AsyncEnumerable
     {
         public static IAsyncEnumerable<TResult> Select<TSource, TResult>(this IAsyncEnumerable<TSource> source, Func<TSource, TResult> selector)
@@ -1149,7 +1148,6 @@ namespace System.Linq
                 return Classes().SelectMany(x => x.ToAsyncEnumerable()).GetEnumerator();
             }
 
-#if SPREADS
             IAsyncEnumerator<T> IAsyncEnumerable<T>.GetEnumerator() {
                 return GetEnumerator();
             }
@@ -1161,7 +1159,6 @@ namespace System.Linq
             IEnumerator IEnumerable.GetEnumerator() {
                 return GetEnumerator();
             }
-#endif
         }
 
         class ReverseComparer<T> : IComparer<T>
@@ -1522,7 +1519,7 @@ namespace System.Linq
                     d.Dispose
                 );
             }
-#if SPREADS
+
             IAsyncEnumerator<TElement> IAsyncEnumerable<TElement>.GetEnumerator() {
                 return GetEnumerator();
             }
@@ -1534,7 +1531,7 @@ namespace System.Linq
             IEnumerator IEnumerable.GetEnumerator() {
                 return GetEnumerator();
             }
-#endif
+
         }
 
         #region Ix

@@ -1,8 +1,9 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+
+using System;
 using System.Threading;
 
-namespace System.Linq
-{
+namespace Spreads.Ix {
     class CancellationTokenDisposable : IDisposable
     {
         private readonly CancellationTokenSource cts = new CancellationTokenSource();

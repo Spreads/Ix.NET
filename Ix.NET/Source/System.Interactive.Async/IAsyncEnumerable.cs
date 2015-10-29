@@ -1,15 +1,17 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 using System;
+#if SPREADS
+using Spreads;
+#endif
 
-namespace System.Collections.Generic
-{
+namespace Spreads.Ix {
 
 
 #if SPREADS
 
     //public interface IAsyncEnumerable<T> : Spreads.IAsyncEnumerable<T>
     //{
-        
+
     //}
 
 #else
@@ -24,7 +26,7 @@ namespace System.Collections.Generic
 #if !NO_VARIANCE
 out
 #endif
-        T>
+        T> : IEnumerable<T>
     {
         /// <summary>
         /// Gets an asynchronous enumerator over the sequence.

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 #if SPREADS
 using Spreads;
 #endif
-namespace System.Linq
-{
+namespace Spreads
+    {
 #if SPREADS
 
     public interface IAsyncGrouping<TKey, TElement> : IAsyncEnumerable<TElement> {
